@@ -1,7 +1,7 @@
 {
   "entry_threshold": 0.05,
   "min_momentum_pct": 0.15,
-  "max_position": 1.5,
+  "max_position": 3.5,
   "lookback_minutes": 5,
   "min_time_remaining": 60,
   "asset": "BTC",
