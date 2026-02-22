@@ -3,9 +3,10 @@
   "min_momentum_pct": 0.15,
   "max_position": 3.5,
   "lookback_minutes": 5,
-  "min_time_remaining": 60,
+  "min_time_remaining": 10,
   "asset": "BTC",
   "window": "5m",
   "signal_source": "binance",
-  "volume_confidence": true
+  "volume_confidence": true,
+  "daily_budget": 10
 }
