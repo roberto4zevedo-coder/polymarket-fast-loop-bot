@@ -78,7 +78,7 @@ CONFIG_SCHEMA = {
         "help": "Minutes of price history for momentum calc",
     },
     "min_time_remaining": {
-        "default": 60,
+        "default": 10,  # plus souple que 60s
         "env": "SIMMER_SPRINT_MIN_TIME",
         "type": int,
         "help": "Skip fast_markets with less than this many seconds remaining",
@@ -113,7 +113,7 @@ TRADE_SOURCE = "sdk:fastloop"
 SMART_SIZING_PCT = 0.05  # 5% of balance per trade
 MIN_SHARES_PER_ORDER = 5  # Polymarket minimum
 
-# *** NOUVEAU : on limite aux marchés qui expirent dans moins d'1h ***
+# Limite haute : marchés qui expirent dans moins d'1h
 MAX_EXPIRY_SECONDS = 60 * 60  # 60 minutes
 
 # Asset → Binance symbol mapping
@@ -356,8 +356,13 @@ def find_best_fast_market(markets):
         if not end_time:
             continue
         remaining = (end_time - now).total_seconds()
-        # On veut assez de temps pour trader, mais pas des marchés dans 24h
-        if MIN_TIME_REMAINING < remaining <= MAX_EXPIRY_SECONDS:
+        # DEBUG: voir ce que le bot voit réellement
+        print(
+            f"[DEBUG] {m.get('slug')} remaining={remaining:.1f}s "
+            f"(min={MIN_TIME_REMAINING}, max={MAX_EXPIRY_SECONDS})"
+        )
+        # On veut assez de temps pour trader, mais pas des marchés trop lointains
+        if remaining >= MIN_TIME_REMAINING and remaining <= MAX_EXPIRY_SECONDS:
             candidates.append((remaining, m))
 
     if not candidates:
