@@ -114,8 +114,7 @@ SMART_SIZING_PCT = 0.05  # 5% of balance per trade
 MIN_SHARES_PER_ORDER = 5  # Polymarket minimum
 
 # Limite haute : marchés qui expirent dans moins d'1h
-MAX_EXPIRY_SECONDS = 60 * 60  # 60 minutes
-
+MAX_EXPIRY_SECONDS = 100000
 # Asset → Binance symbol mapping
 ASSET_SYMBOLS = {
     "BTC": "BTCUSDT",
